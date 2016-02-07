@@ -1,5 +1,6 @@
 package com.donedream.sillapajarn.chawametha.kantrestaurant;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.http.HttpResponseCache;
 import android.os.StrictMode;
@@ -80,8 +81,11 @@ public class MainActivity extends AppCompatActivity {
             String[] resultStrings = objMyManage.searchUser(userString);
 
             if (passwordString.equals(resultStrings[2])) {
-
                 //intent to service
+                Intent objIntent = new Intent(MainActivity.this, ServiceActivity.class);
+                objIntent.putExtra("Name", resultStrings[3]);
+                startActivity(objIntent);
+                finish();
 
             } else {
                 Toast.makeText(MainActivity.this,
