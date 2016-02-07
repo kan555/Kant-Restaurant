@@ -67,10 +67,35 @@ public class MainActivity extends AppCompatActivity {
         } else {
 
             //no space
+            checkAuthen();
 
         }   //if
 
     }   //clickLogin
+
+    private void checkAuthen() {
+
+        try {
+
+            String[] resultStrings = objMyManage.searchUser(userString);
+
+            if (passwordString.equals(resultStrings[2])) {
+
+                //intent to service
+
+            } else {
+                Toast.makeText(MainActivity.this,
+                        "Wrong Password",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this,
+                    "No " + userString +" in our database",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+    }   //check authen
 
     private void synJSONtoSQLite() {
 

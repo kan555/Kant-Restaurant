@@ -2,6 +2,7 @@ package com.donedream.sillapajarn.chawametha.kantrestaurant;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -31,6 +32,39 @@ public class MyManage {
         readSqLiteDatabase = objMyOpenHelper.getReadableDatabase();
 
     }   // Constructor
+
+    public String[] searchUser(String strUser) {
+
+        try {
+
+            String[] resultStrings = null;
+            // explicit for ram
+            Cursor objCursor = readSqLiteDatabase.query(user_TABLE,
+                    new String[]{colum_id,colum_user,colum_pass,colum_name},
+                    colum_user + "=?",
+                    new String[]{String.valueOf(strUser)},
+                    null, null, null);
+
+            if (objCursor != null) {
+                if (objCursor.moveToFirst()) {
+
+                    resultStrings = new String[4];
+                    for (int i = 0; i < 4; i++) {
+                        resultStrings[i] = objCursor.getString(i);
+                    }
+
+                }   //if2
+            }   //if1
+            objCursor.close();
+            return resultStrings;
+
+        } catch (Exception e) {
+            return null;
+        }   //try
+
+        //return new String[0];
+    }
+
 
     public long addNewValue(int intTable,
                             String strColumn2,
