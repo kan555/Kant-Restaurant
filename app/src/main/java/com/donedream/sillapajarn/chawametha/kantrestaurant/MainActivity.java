@@ -6,6 +6,9 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -23,11 +26,17 @@ public class MainActivity extends AppCompatActivity {
 
     //Explicit
     private MyManage objMyManage;
+    private EditText userEditText, passwordEditText;
+    private String userString, passwordString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //bindWidget
+        userEditText = (EditText) findViewById(R.id.editText);
+        passwordEditText = (EditText) findViewById(R.id.editText2);
 
         // Request Database
         objMyManage = new MyManage(this);
@@ -42,6 +51,26 @@ public class MainActivity extends AppCompatActivity {
         synJSONtoSQLite();
 
     }   // Main Method
+
+    public void clickLogin(View view) {
+
+        //check space
+        userString = userEditText.getText().toString().trim();
+        passwordString = passwordEditText.getText().toString().trim();
+
+        if (userString.equals("") || passwordString.equals("")) {
+
+            //have space
+            Toast.makeText(MainActivity.this, "please fill in all forms", Toast.LENGTH_SHORT).show();
+
+
+        } else {
+
+            //no space
+
+        }   //if
+
+    }   //clickLogin
 
     private void synJSONtoSQLite() {
 
